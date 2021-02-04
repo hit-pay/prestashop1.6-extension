@@ -71,7 +71,7 @@ class HitpayConfirmationModuleFrontController extends ModuleFrontController
             $saved_payment = HitPayPayment::getById($payment_id);
             if ($saved_payment->status == 'completed'
                 && $saved_payment->amount == $cart->getOrderTotal()
-                && $saved_payment->is_paid
+                /*&& $saved_payment->is_paid*/
                 && $saved_payment->order_id) {
 
                 Tools::redirect(
