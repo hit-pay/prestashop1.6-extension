@@ -33,6 +33,8 @@ use HitPay\Client;
  */
 class HitpayConfirmationModuleFrontController extends ModuleFrontController
 {
+    public $display_column_left = false;
+    public $display_column_right = false;
     /**
      * @return bool
      */
@@ -70,10 +72,8 @@ class HitpayConfirmationModuleFrontController extends ModuleFrontController
              */
             $saved_payment = HitPayPayment::getById($payment_id);
             if ($saved_payment->status == 'completed'
-                && $saved_payment->amount == $cart->getOrderTotal()
-                /*&& $saved_payment->is_paid*/
+                && number_format($saved_payment->amount, 2) == number_format($cart->getOrderTotal(), 2)
                 && $saved_payment->order_id) {
-
                 Tools::redirect(
                     'index.php?controller=order-confirmation&id_cart='
                     . $saved_payment->cart_id
@@ -85,15 +85,12 @@ class HitpayConfirmationModuleFrontController extends ModuleFrontController
                     . $secure_key
                 );
             } else {
-                throw new \Exception(
-                    sprintf(
-                        'HitPay: payment id: %s, amount is %s, status is %s, is paid: %s',
-                        $saved_payment->payment_id,
-                        $saved_payment->amount,
-                        $saved_payment->status,
-                        $saved_payment->is_paid ? 'yes' : 'no'
-                    )
-                );
+                $this->context->smarty->assign('link', $this->context->link);
+                $this->context->smarty->assign('hitpay_payment_id', $payment_id);
+                $this->context->smarty->assign('hitpay_cart_id', $cart_id);
+                $this->context->smarty->assign('status_ajax_url', $ajax_url);
+                $this->context->smarty->assign('hitpay_img_path', _MODULE_DIR_.'hitpay/views/img/');
+                return $this->setTemplate('confirmation.tpl');
             }
         } catch (\Exception $e) {
             PrestaShopLogger::addLog(

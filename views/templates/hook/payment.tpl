@@ -24,22 +24,21 @@
 *}
 
 <div class="row">
-    <div class="col-xs-12 col-md-6">
+    <div class="col-xs-12 col-md-12">
         <p class="payment_module" id="hitpay_payment_button">
             <a href="{$link->getModuleLink('hitpay', 'redirect', array(), true)|escape:'htmlall':'UTF-8'}"
-               title="{l s='HitPay' mod='hitpay'}">
-				{if $paynow_online}
-					<img src="{$module_dir|escape:'html':'UTF-8'}views/img/Acceptance Marks Copy 4.png" width="64"
-						 height="32"/>
-				{/if}
-				{if $card}
-					<img src="{$module_dir|escape:'html':'UTF-8'}views/img/Acceptance Marks Copy 5.png" width="150"
-						 height="32"/>
-				{/if}
-				{if $wechat}
-					<img src="{$module_dir|escape:'html':'UTF-8'}views/img/Acceptance Marks Copy 6.png" width="100"
-						 height="32"/>
-				{/if}
+               title="{$hitpay_title}">
+                {if isset($hitpay_logos)}
+                    {foreach $hitpay_logos as $hitpay_logo}
+                        <img src="{$hitpay_logo_path|escape:'html':'UTF-8'}{$hitpay_logo}.svg" 
+                             alt="{$hitpay_logo}" 
+                             title="{$hitpay_logo}"
+                             width="64"
+                             height="32"
+                        />
+                    {/foreach}
+                {/if}
+                {$hitpay_title}
             </a>
         </p>
     </div>

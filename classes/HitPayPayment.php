@@ -209,6 +209,28 @@ class HitPayPayment extends ObjectModel
 
         return new HitPayPayment($id, null, $shop_id);
     }
+    
+    /**
+     * @param $order_id
+     * @return HitPayPayment
+     * @throws PrestaShopDatabaseException
+     * @throws PrestaShopException
+     */
+    public static function getByOrderId($order_id)
+    {
+        $shop_id = Context::getContext()->shop->id;
+
+        $id = Db::getInstance()->getValue(
+            ' SELECT prsps.' . self::$definition['primary'] . ' FROM '
+            . _DB_PREFIX_ . static::$definition['table'] . ' AS prsp'
+            . ' LEFT JOIN ' . _DB_PREFIX_ . self::$definition['table'] . '_shop AS prsps '
+            . ' ON (prsps.' . self::$definition['primary'] . ' = prsp.' . self::$definition['primary'] . ' '
+            . ' AND prsps.`id_shop` = ' . (int)$shop_id . ')'
+            . ' WHERE prsp.order_id = "' . pSQL($order_id) . '"'
+        );
+
+        return new HitPayPayment($id, null, $shop_id);
+    }
 
     /**
      * @return bool
