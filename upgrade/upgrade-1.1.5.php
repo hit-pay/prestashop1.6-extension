@@ -1,5 +1,6 @@
-{*
-* 2007-2020 PrestaShop
+<?php
+/*
+* 2007-2017 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -17,20 +18,13 @@
 * versions in the future. If you wish to customize PrestaShop for your
 * needs please refer to http://www.prestashop.com for more information.
 *
-*  @author    PrestaShop SA <contact@prestashop.com>
-*  @copyright 2007-2020 PrestaShop SA
-*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
-*}
+*/
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#template_1" role="tab" data-toggle="tab">Settings Api</a></li>
-    <li><a href="#template_2" role="tab" data-toggle="tab">Payment Method Settings</a></li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-    <div class="tab-pane active" id="template_1">{$settings_api_form}</div>
-    <div class="tab-pane" id="template_2">{include file='./template.tpl'}</div>
-</div>
+function upgrade_module_1_1_5($module)
+{
+    return $module->upgrade_1_1_5();
+}
