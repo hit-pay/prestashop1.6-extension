@@ -64,6 +64,16 @@ class HitPayPayment extends ObjectModel
      * @var bool
      */
     public $is_paid;
+    
+    /**
+     * @var string
+     */
+    public $payment_type;
+    
+    /**
+     * @var float $amount
+     */
+    public $fees;
 
     /**
      * @var array
@@ -128,6 +138,18 @@ class HitPayPayment extends ObjectModel
                 'shop' => true,
                 'validate' => 'isBool',
                 'size' => 10
+            ),
+            'payment_type' => array(
+                'type' => self::TYPE_STRING,
+                'shop' => true,
+                'validate' => 'isString',
+                'size' => 255,
+            ),
+            'fees' => array(
+                'type' => self::TYPE_FLOAT,
+                'shop' => true,
+                 'validate' => 'isFloat',
+                'size' => 50
             ),
         ),
     );

@@ -58,7 +58,7 @@ class HitpayWebhookModuleFrontController extends ModuleFrontController
 
         $cart_id = (int)Tools::getValue('cart_id');
         $secure_key = Tools::getValue('secure_key');
-        
+       
         if ($cart_id > 0) {
             if ($this->module->isWebhookTriggered($cart_id)) {
                 exit;
@@ -87,12 +87,12 @@ class HitpayWebhookModuleFrontController extends ModuleFrontController
 
         try {
             $data = $_POST;
-            /*PrestaShopLogger::addLog(
+            PrestaShopLogger::addLog(
                 date("Y-m-d H:i:s").': '.'HitPay: Webhook POST Data: '.print_r($data, true),
                 1,
                 null,
                 'HitPay'
-            );*/
+            );
             
             unset($data['hmac']);
 
@@ -117,10 +117,10 @@ class HitpayWebhookModuleFrontController extends ModuleFrontController
                     $saved_payment->status = Tools::getValue('status');
                     
                     if ($saved_payment->status == 'completed'
-                        && number_format($saved_payment->amount, 2) == Tools::getValue('amount')
+                        && number_format($saved_payment->amount, 2, '.', '') == Tools::getValue('amount')
                         && $saved_payment->cart_id == Tools::getValue('reference_number')
                         && $saved_payment->currency_id == Currency::getIdByIsoCode(Tools::getValue('currency'))) {
-                        $payment_status = Configuration::get('PS_OS_PAYMENT');
+                        $payment_status = $this->module->getPaymentOrderStatus();
                     } elseif ($saved_payment->status == 'failed') {
                         $payment_status = Configuration::get('PS_OS_ERROR');
                     } elseif ($saved_payment->status == 'pending') {
@@ -157,7 +157,7 @@ class HitpayWebhookModuleFrontController extends ModuleFrontController
                         $this->module->addOrderWebhookTrigger($cart_id);
                     } else {
                         $order = new Order($order_id);
-                        if ($order->current_state != Configuration::get('PS_OS_PAYMENT')) {
+                        if ($order->current_state != $this->module->getPaymentOrderStatus()) {
                             $new_history = new OrderHistory();
                             $new_history->id_order = (int) $order_id;
                             $new_history->changeIdOrderState((int) $payment_status, $order_id, true);

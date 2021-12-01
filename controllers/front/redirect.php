@@ -87,6 +87,7 @@ class HitpayRedirectModuleFrontController extends ModuleFrontController
                 $create_payment_request->setName($customer->firstname . ' ' . $customer->lastname);
                 $create_payment_request->setEmail($customer->email);
             }
+            $create_payment_request->setPurpose($this->module->getSiteName());
 
             $result = $hitpay_client->createPayment($create_payment_request);
 
