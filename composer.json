@@ -6,14 +6,5 @@
       "name": "Dzmitry Urbanovich",
       "email": "dev@soft-build.by"
     }
-  ],
-  "require": {
-    "softbuild/hitpay-sdk": "2.0.*"
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://urbanovichdi@bitbucket.org/urbanovichdi/hitpay-sdk.git"
-    }
   ]
 }
