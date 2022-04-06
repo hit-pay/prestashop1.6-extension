@@ -92,3 +92,6 @@ composer update;
 
 = 2.0.1 =
 - HitPay SDK included within the package
+
+= 2.0.2 =
+- Added FPX and Zip Payment logos selection
