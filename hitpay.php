@@ -188,6 +188,14 @@ class Hitpay extends PaymentModule
                 'value' => 'shopeepay',
                 'label' => $this->l('Shopee Pay')
             ),
+            array(
+                'value' => 'fpx',
+                'label' => $this->l('FPX')
+            ),
+            array(
+                'value' => 'zip',
+                'label' => $this->l('Zip')
+            ),
         );
         return $list;
     }
