@@ -30,10 +30,16 @@
                title="{$hitpay_title}">
                 {if isset($hitpay_logos)}
                     {foreach $hitpay_logos as $hitpay_logo}
-                        <img src="{$hitpay_logo_path|escape:'html':'UTF-8'}{$hitpay_logo}.svg" 
+                        {assign var='extn' value='svg'}
+                        {assign var='width' value='width="64"'}
+                        {if $hitpay_logo == 'atomeplus' ||  $hitpay_logo == 'pesonet'}
+                            {assign var='extn' value='png'}
+                            {assign var='width' value=''}
+                        {/if}
+                        <img src="{$hitpay_logo_path|escape:'html':'UTF-8'}{$hitpay_logo}.{$extn}" 
                              alt="{$hitpay_logo}" 
                              title="{$hitpay_logo}"
-                             width="64"
+                             {$width}
                              height="32"
                         />
                     {/foreach}
