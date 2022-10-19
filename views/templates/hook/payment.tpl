@@ -32,7 +32,7 @@
                     {foreach $hitpay_logos as $hitpay_logo}
                         {assign var='extn' value='svg'}
                         {assign var='width' value='width="64"'}
-                        {if $hitpay_logo == 'atomeplus' ||  $hitpay_logo == 'pesonet'}
+                        {if $hitpay_logo == 'pesonet'}
                             {assign var='extn' value='png'}
                             {assign var='width' value=''}
                         {/if}
