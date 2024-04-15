@@ -94,4 +94,6 @@ composer update;
 - HitPay SDK included within the package
 
 = 2.0.2 =
+- Added FPX and Zip Payment logos selection
 - Added Atome and Billease, GCash, Union Bank, QRPH, PESONet logos
+
